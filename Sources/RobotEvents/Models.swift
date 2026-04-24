@@ -111,8 +111,8 @@ public enum SkillType: String, Codable, Sendable {
 }
 
 public enum AllianceColor: String, Codable, Sendable {
-    case red  = "Red"
-    case blue = "Blue"
+    case red  = "red"
+    case blue = "blue"
 }
 
 public enum AwardDesignation: String, Codable, Sendable {
