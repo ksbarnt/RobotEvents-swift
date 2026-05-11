@@ -1,6 +1,6 @@
 # RobotEvents Swift
 
-A Swift library for the [RobotEvents Public API v2](https://www.robotevents.com/api/v2).
+A Swift library for the [RobotEvents Public API v2](https://events.vex.com/api/v2).
 
 ## Requirements
 
@@ -14,7 +14,7 @@ A Swift library for the [RobotEvents Public API v2](https://www.robotevents.com/
 ```swift
 // Package.swift
 dependencies: [
-    .package(url: "https://github.com/your-org/RobotEvents.git", from: "1.0.0")
+    .package(url: "https://github.com/ksbarnt/RobotEvents-swift.git", from: "1.0.0")
 ],
 targets: [
     .target(name: "MyTarget", dependencies: ["RobotEvents"])
@@ -25,7 +25,7 @@ Or add it in Xcode via **File → Add Package Dependencies**.
 
 ## Authentication
 
-Obtain a Bearer token from [robotevents.com](https://www.robotevents.com/api/v2).
+Obtain a Bearer token from [events.vex.com](https://events.vex.com/api/v2).
 
 ```swift
 // Pass directly
