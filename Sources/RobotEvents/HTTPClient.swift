@@ -15,6 +15,8 @@ public enum RobotEventsError: Error, LocalizedError, Sendable {
     case invalidURL
     /// No API key was provided.
     case missingAPIKey
+    /// An unexpected number of results was returned
+    case unexpectedResultCount(expected: Int, got: Int)
 
     public var errorDescription: String? {
         switch self {
@@ -26,6 +28,8 @@ public enum RobotEventsError: Error, LocalizedError, Sendable {
             return "Could not construct a valid URL."
         case .missingAPIKey:
             return "A RobotEvents API key is required."
+        case .unexpectedResultCount(let expected, let got):
+            return "Unexpected number of results returned: expected \(expected), got \(got)."
         }
     }
 }
@@ -36,7 +40,7 @@ final class HTTPClient: Sendable {
 
     private let apiKey: String
     private let session: URLSession
-    private let baseURL = URL(string: "https://www.robotevents.com/api/v2")!
+    private let baseURL = URL(string: "https://events.vex.com/api/v2")!
 
     static let iso8601Formatter: ISO8601DateFormatter = {
         let f = ISO8601DateFormatter()

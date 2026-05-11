@@ -153,7 +153,17 @@ public struct Event: Codable, Identifiable, Hashable, Sendable {
 
 // MARK: - Team
 
-public struct Team: Codable, Identifiable, Hashable, Sendable {
+public struct Team: Codable, Identifiable, Hashable, Sendable, CustomStringConvertible {
+    public var description: String {
+        var desc = "id: \(id); "
+        desc += "number: \(number); "
+        desc += "teamName: \(teamName ?? "nil"); "
+        desc += "robotName:\(robotName ?? "nil"); "
+        desc += "organization:\(organization ?? "nil"); "
+        desc += "grade:\(grade?.rawValue ?? "nil"); "
+        return desc
+    }
+    
     public let id: Int
     public let number: String
     public let teamName: String?

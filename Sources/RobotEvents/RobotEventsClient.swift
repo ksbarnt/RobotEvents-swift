@@ -25,7 +25,7 @@ import Foundation
 /// ```
 ///
 /// ## Authentication
-/// Obtain a Bearer token from https://www.robotevents.com/api/v2 and pass it
+/// Obtain a Bearer token from https://events.vex.com/api/v2 and pass it
 /// as `apiKey`, or set the `ROBOT_EVENTS_API_KEY` environment variable.
 public final class RobotEventsClient: Sendable {
 
@@ -236,6 +236,21 @@ public final class RobotEventsClient: Sendable {
     /// `GET /teams/{id}` — Fetch a single team.
     public func team(id: Int) async throws -> Team {
         try await http.get(path: "teams/\(id)")
+    }
+    
+    /// `GET /teams/{id}` — Fetch a single team in a given program by team number.
+    public func team(number: String, program: Int) async throws -> Team? {
+        var team: Team? = nil
+        let teamFilter = TeamFilters(numbers: [number], programs: [program])
+        let teamSearch: [Team] = try await self.allPages { page, perPage in
+            try await self.teams(filters: teamFilter, page: page, perPage: perPage)
+        }
+        if teamSearch.count == 1 {
+            team = teamSearch.first
+        } else if teamSearch.count > 1 {
+            throw RobotEventsError.unexpectedResultCount(expected: 1, got: teamSearch.count)
+        }
+        return team
     }
 
     /// `GET /teams/{id}/events` — Events a team has attended.
